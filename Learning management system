@@ -1,0 +1,73 @@
+class User:
+    def __init__(self, username, password, role):
+        self.username = username
+        self.password = password
+        self.role = role
+
+class UserManager:
+    def __init__(self):
+        self.users = {}
+
+    def register_user(self, username, password, role):
+        if username not in self.users:
+            self.users[username] = User(username, password, role)
+            print(f"User {username} registered successfully.")
+        else:
+            print("Username already exists. Please choose a different one.")
+
+    def authenticate_user(self, username, password):
+        if username in self.users and self.users[username].password == password:
+            return True
+        else:
+            return False
+
+class Course:
+    def __init__(self, title, instructor):
+        self.title = title
+        self.instructor = instructor
+        self.content = []
+
+    def add_content(self, content):
+        self.content.append(content)
+
+class AssessmentTool:
+    def __init__(self):
+        self.quizzes = {}
+        self.assignments = {}
+
+    def create_quiz(self, quiz_id, questions):
+        self.quizzes[quiz_id] = questions
+
+    def create_assignment(self, assignment_id, instructions):
+        self.assignments[assignment_id] = instructions
+
+class ProgressTracker:
+    def __init__(self):
+        self.progress = {}
+
+    def track_progress(self, user, course, progress):
+        if user.username not in self.progress:
+            self.progress[user.username] = {}
+        self.progress[user.username][course.title] = progress
+
+# Sample usage
+user_manager = UserManager()
+user_manager.register_user("student1", "password1", "student")
+user_manager.register_user("instructor1", "password2", "instructor")
+user_manager.register_user("admin1", "password3", "administrator")
+
+course1 = Course("Python Programming", "instructor1")
+course2 = Course("Web Development", "instructor1")
+
+course1.add_content("Lesson 1: Introduction to Python")
+course1.add_content("Lesson 2: Data Types in Python")
+course2.add_content("Lesson 1: HTML Basics")
+course2.add_content("Lesson 2: CSS Styling")
+
+assessment_tool = AssessmentTool()
+assessment_tool.create_quiz("quiz1", ["Question 1", "Question 2"])
+assessment_tool.create_assignment("assignment1", "Complete the HTML code.")
+
+progress_tracker = ProgressTracker()
+progress_tracker.track_progress(user_manager.users["student1"], course1, "50% complete")
+progress_tracker.track_progress(user_manager.users["student1"], course2, "25% complete")
