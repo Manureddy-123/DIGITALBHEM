@@ -1,0 +1,68 @@
+class HotelReservation:
+    def __init__(self, name, check_in_date, total_days, total_persons, advance_amount):
+        self.name = name
+        self.check_in_date = check_in_date
+        self.total_days = total_days
+        self.total_persons = total_persons
+        self.advance_amount = advance_amount
+
+    def calculate_total_cost(self, room_rate, amenities_cost):
+        return (room_rate + amenities_cost) * self.total_days + 1000 * (self.total_persons - 1)
+
+    def calculate_balance(self, total_cost):
+        return total_cost - self.advance_amount
+
+
+class Room:
+    def __init__(self, room_type, amenities):
+        self.room_type = room_type
+        self.amenities = amenities
+
+    def calculate_room_rate(self):
+        room_rates = {'Delux': 2000, 'Suite': 3000}
+        return room_rates[self.room_type]
+
+    def calculate_amenities_cost(self):
+        amenities_cost = 0
+        if 'AC' in self.amenities:
+            amenities_cost += 500
+        if 'Locker' in self.amenities:
+            amenities_cost += 200
+        return amenities_cost
+
+
+def main():
+    name = input("Enter customer name: ")
+    check_in_date = input("Enter check-in date (YYYY-MM-DD): ")
+    total_days = int(input("Enter total days of stay: "))
+    total_persons = int(input("Enter total number of persons: "))
+    advance_amount = float(input("Enter advance amount: "))
+
+    room_type = input("Select room type (Delux or Suite): ")
+    amenities = input("Select amenities (AC, Locker separated by comma): ").split(', ')
+
+    reservation = HotelReservation(name, check_in_date, total_days, total_persons, advance_amount)
+    room = Room(room_type, amenities)
+
+    room_rate = room.calculate_room_rate()
+    amenities_cost = room.calculate_amenities_cost()
+
+    total_cost = reservation.calculate_total_cost(room_rate, amenities_cost)
+    balance = reservation.calculate_balance(total_cost)
+
+    print("\nReservation Summary:")
+    print(f"Name: {reservation.name}")
+    print(f"Check-in Date: {reservation.check_in_date}")
+    print(f"Total Days: {reservation.total_days}")
+    print(f"Total Persons: {reservation.total_persons}")
+    print(f"Advance Amount: {reservation.advance_amount}")
+    print(f"Room Type: {room.room_type}")
+    print(f"Amenities: {', '.join(room.amenities)}")
+    print(f"Total Room Cost: {room_rate * reservation.total_days}")
+    print(f"Total Amenities Cost: {amenities_cost}")
+    print(f"Total Cost: {total_cost}")
+    print(f"Balance: {balance}")
+
+
+if __name__ == "__main__":
+    main()
