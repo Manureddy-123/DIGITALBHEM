@@ -57,12 +57,4 @@ def main():
     print(f"Total Persons: {reservation.total_persons}")
     print(f"Advance Amount: {reservation.advance_amount}")
     print(f"Room Type: {room.room_type}")
-    print(f"Amenities: {', '.join(room.amenities)}")
-    print(f"Total Room Cost: {room_rate * reservation.total_days}")
-    print(f"Total Amenities Cost: {amenities_cost}")
-    print(f"Total Cost: {total_cost}")
-    print(f"Balance: {balance}")
-
-
-if __name__ == "__main__":
-    main()
+    print(f"Amenities: {', '.join(room.ame
